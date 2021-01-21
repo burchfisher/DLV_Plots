@@ -17,7 +17,7 @@ from bokeh.palettes import Spectral6
 from bokeh.transform import factor_cmap
 
 # Bring in data
-df = pd.read_csv(join(dirname(__file__), 'data/data.csv'))
+df = pd.read_csv(join(dirname(__file__), 'data.csv'))
 # df = df.set_index('Sample')
 
 # X and Y titles
