@@ -1,7 +1,7 @@
 from os.path import join, dirname
 import pandas as pd
 
-from bokeh.io import output_file, show
+from bokeh.io import output_file, show, curdoc
 from bokeh.layouts import gridplot
 from bokeh.models import ColorBar, ColumnDataSource
 from bokeh.plotting import figure
@@ -67,7 +67,5 @@ a1.yaxis.axis_label = y[1]
 # p = gridplot([['a0','a1','a2','a3'], ['b0','b1','b2','b3']], toolbar_location='right', toolbar_options=dict(logo='gray'))
 p = gridplot([[a0,a1]])
 
-#show(p)
-
-output_file("DLV.html")
-
+#output_file("DLV.html")
+curdoc().add_root(p)
