@@ -35,10 +35,7 @@ so = df[df.Type == 'MC20 Sampled Oils']
 # g4 = df[df.Type == 'Group 4']
 # w = df[df.Type == 'W']
 
-
 # Bokeh Plot
-output_file("DLV.html")
-
 # create a column data source for the plots to share
 source_ro = ColumnDataSource(ro)
 source_so = ColumnDataSource(so)
@@ -70,6 +67,7 @@ a1.yaxis.axis_label = y[1]
 # p = gridplot([['a0','a1','a2','a3'], ['b0','b1','b2','b3']], toolbar_location='right', toolbar_options=dict(logo='gray'))
 p = gridplot([[a0,a1]])
 
-show(p)
+#show(p)
 
+output_file("DLV.html")
 
