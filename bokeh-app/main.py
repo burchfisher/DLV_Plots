@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Jan 20 20:39:08 2021
-
-@author: burch
-"""
-
 from os.path import join, dirname
 import pandas as pd
 
