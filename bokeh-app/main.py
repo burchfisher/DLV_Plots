@@ -12,12 +12,20 @@ from bokeh.transform import factor_cmap
 # Bring in data
 df = pd.read_csv(join(dirname(__file__), 'data.csv'))
 
-# X and Y axis ratios
-x = ['C2-Phenanthrenes/Anthracenes/Phytane','C2-Dibenzothiophenes/C2-Phenanthrenes/Anthracenes','C2-Dibenzothiophenes/C2-Phenanthrenes/Anthracenes',
-       'C1-Phenanthrenes/Anthracenes/Pristane','C1-Dibenzothiophenes/Pristane','27dia S/Tm','Bsnh/Hop','28S TAS/Tm']
+# %% X and Y axis ratios
+# x = ['C2-Phenanthrenes/Anthracenes/Phytane','C2-Dibenzothiophenes/C2-Phenanthrenes/Anthracenes','C2-Dibenzothiophenes/C2-Phenanthrenes/Anthracenes',
+#        'C1-Phenanthrenes/Anthracenes/Pristane','C1-Dibenzothiophenes/Pristane','27dia S/Tm','Bsnh/Hop','28S TAS/Tm']
 
-y = ['C1-Phenanthrenes/Anthracenes/Pristane','C1-Dibenzothiophenes/C1-Phenanthrenes/Anthracenes','C1-Phenanthrenes/Anthracenes/Pristane',
-       'MP2/Benzo[e]pyrene','27dia S/Tm','MP2/Benzo[e]pyrene','MP2/Perylene','27bb R/Hop']
+# y = ['C1-Phenanthrenes/Anthracenes/Pristane','C1-Dibenzothiophenes/C1-Phenanthrenes/Anthracenes','C1-Phenanthrenes/Anthracenes/Pristane',
+#        'MP2/Benzo[e]pyrene','27dia S/Tm','MP2/Benzo[e]pyrene','MP2/Perylene','27bb R/Hop']
+
+x = ['C2-Dibenzothiophenes/C2-Phenanthrenes/Anthracenes','28S TAS/Tm','MP2/Perylene','MP2/Benzo[e]pyrene','27bb S/Hop','MP2/Perylene',
+     'n-Tetracosane (C24)/Hop','Benzo[e]pyrene/Hop','Bsnh/Hop','Bsnh/H29','C2-Phenanthrenes/Anthracenes/Phytane','C2-Dibenzothiophenes/C2-Phenanthrenes/Anthracenes',
+     'C2-Dibenzothiophenes/C2-Phenanthrenes/Anthracenes','C1-Phenanthrenes/Anthracenes/Pristane','C1-Dibenzothiophenes/Pristane','27dia S/Tm','Bsnh/Hop','28S TAS/Tm']
+
+y = ['2,6,10 Trimethyldodecane (1380)/C4-Decalins','C1-Dibenzothiophenes/C1-Phenanthrenes/Anthracenes','28S TAS/Tm','28S TAS/Tm','C26 Tricyclic Terpane-22S/H29',
+     'Tm/Bsnh','Bsnh/Hop','Bsnh/Hop','H29/Hop','29Ts/Hop','C1-Phenanthrenes/Anthracenes/Pristane','C1-Dibenzothiophenes/C1-Phenanthrenes/Anthracenes',
+     'C1-Phenanthrenes/Anthracenes/Pristane','MP2/Benzo[e]pyrene','27dia S/Tm','MP2/Benzo[e]pyrene','MP2/Perylene','27bb R/Hop']
 
 # %% Bokeh Plot
 source = ColumnDataSource(df)
@@ -31,6 +39,7 @@ ph = 450
 ms = 9
 fa = 0.75 
 cnt = 0
+p = []
 
 #legend_field="Type"
 
@@ -42,65 +51,22 @@ colors = factor_cmap('Type', palette=Category20_20, factors=df.Type.unique())
 hline = Span(location=0, dimension='height', line_color='gray', line_width=2, line_alpha=fa)
 vline = Span(location=0, dimension='width', line_color='gray', line_width=2, line_alpha=fa)
 
-cnt = 0
-a0 = figure(tools=TOOLS, plot_width=pw, plot_height=ph, title=None, tooltips=ttips)
-a0.scatter(x[cnt], y[cnt], source=source, fill_alpha=fa, size=ms, color=colors)
-a0.xaxis.axis_label = x[cnt]
-a0.yaxis.axis_label = y[cnt]
-a0.renderers.extend([vline, hline])
+for cnt in np.arange(0,len(x)):
+    plot = figure(tools=TOOLS, plot_width=pw, plot_height=ph, title=None, tooltips=ttips)
+    plot.scatter(x[cnt], y[cnt], source=source, fill_alpha=fa, size=ms, color=colors)
+    plot.xaxis.axis_label = x[cnt]
+    plot.yaxis.axis_label = y[cnt]
+    plot.renderers.extend([vline, hline])
+    p.append(plot)
 
-cnt += 1
-a1 = figure(tools=TOOLS, plot_width=pw, plot_height=ph, title=None, tooltips=ttips)
-a1.scatter(x[cnt], y[cnt], source=source, fill_alpha=fa, size=ms, color=colors)
-a1.xaxis.axis_label = x[cnt]
-a1.yaxis.axis_label = y[cnt]
-a1.renderers.extend([vline, hline])
 
-cnt += 1
-a2 = figure(tools=TOOLS, plot_width=pw, plot_height=ph, title=None, tooltips=ttips)
-a2.scatter(x[cnt], y[cnt], source=source, fill_alpha=fa, size=ms, color=colors)
-a2.xaxis.axis_label = x[cnt]
-a2.yaxis.axis_label = y[cnt]
-a2.renderers.extend([vline, hline])
+plot = figure(tools=TOOLS, plot_width=pw, plot_height=ph, title=None, tooltips=ttips)
+plot.scatter(y[17], y[17], source=source, fill_alpha=fa, size=ms, color=colors, legend_field='Type', muted_color=colors, muted_alpha=0.2)
+plot.xaxis.axis_label = 'Legend'
+plot.legend.location = "top_left"
+p.append(plot) 
 
-cnt += 1
-a3 = figure(tools=TOOLS, plot_width=pw, plot_height=ph, title=None, tooltips=ttips)
-a3.scatter(x[cnt], y[cnt], source=source, fill_alpha=fa, size=ms, color=colors)
-a3.xaxis.axis_label = x[cnt]
-a3.yaxis.axis_label = y[cnt]
-a3.renderers.extend([vline, hline])
-
-cnt += 1
-a4 = figure(tools=TOOLS, plot_width=pw, plot_height=ph, title=None, tooltips=ttips)
-a4.scatter(x[cnt], y[cnt], source=source, fill_alpha=fa, size=ms, color=colors)
-a4.xaxis.axis_label = x[cnt]
-a4.yaxis.axis_label = y[cnt]
-a4.renderers.extend([vline, hline])
-
-cnt += 1
-a5 = figure(tools=TOOLS, plot_width=pw, plot_height=ph, title=None, tooltips=ttips)
-a5.scatter(x[cnt], y[cnt], source=source, fill_alpha=fa, size=ms, color=colors)
-a5.xaxis.axis_label = x[cnt]
-a5.yaxis.axis_label = y[cnt]
-a5.renderers.extend([vline, hline])
-
-cnt += 1
-a6 = figure(tools=TOOLS, plot_width=pw, plot_height=ph, title=None, tooltips=ttips)
-a6.scatter(x[cnt], y[cnt], source=source, fill_alpha=fa, size=ms, color=colors)
-a6.xaxis.axis_label = x[cnt]
-a6.yaxis.axis_label = y[cnt]
-a6.renderers.extend([vline, hline])
-
-cnt += 1
-a7 = figure(tools=TOOLS, plot_width=pw, plot_height=ph, title=None, tooltips=ttips)
-a7.scatter(x[cnt], y[cnt], source=source, fill_alpha=fa, size=ms, color=colors)
-a7.xaxis.axis_label = x[cnt]
-a7.yaxis.axis_label = y[cnt]
-a7.renderers.extend([vline, hline])
-
-# a7.add_layout(Legend(), 'right')
-
-p = gridplot([[a0,a1,a2,a3],[a4,a5,a6,a7]], toolbar_location='right', toolbar_options=dict(logo='grey'))
+p = gridplot([p[0:4],p[4:8],p[8:12],p[12:16],p[16:]], toolbar_location='right', toolbar_options=dict(logo='grey'))
 # p = gridplot([[a0,a1,a2,a3],[a4,a5,a6,a7]])
 
 # output_file("DLV.html")
