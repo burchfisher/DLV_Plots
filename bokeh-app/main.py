@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 from bokeh.io import output_file, show, curdoc
-from bokeh.layouts import gridplot
+from bokeh.layouts import gridplot, column, row, layout
 from bokeh.models import ColorBar, ColumnDataSource, Legend, Span
 from bokeh.plotting import figure
 from bokeh.palettes import Category20_20
@@ -11,6 +11,9 @@ from bokeh.transform import factor_cmap
 
 # Bring in data
 df = pd.read_csv(join(dirname(__file__), 'data.csv'))
+
+# Convert Date column to datetime from object
+df.Date = pd.to_datetime(df.Date).dt.date
 
 # %% X and Y axis ratios
 # x = ['C2-Phenanthrenes/Anthracenes/Phytane','C2-Dibenzothiophenes/C2-Phenanthrenes/Anthracenes','C2-Dibenzothiophenes/C2-Phenanthrenes/Anthracenes',
@@ -38,13 +41,7 @@ pw = 450
 ph = 450
 ms = 9
 fa = 0.75 
-cnt = 0
-p = []
-
-#legend_field="Type"
-
-# order = np.array(['Res Oils','MC20 Sampled Oils','Seds 2007','Seds PC & Box','Seds DC','DSUH','DSLH',
-#                   'Group U','Group 2','Group 3','Group 3a','Group 4','W','POs Post-Con'])
+pl = []
 
 colors = factor_cmap('Type', palette=Category20_20, factors=df.Type.unique())
 
@@ -57,21 +54,32 @@ for cnt in np.arange(0,len(x)):
     plot.xaxis.axis_label = x[cnt]
     plot.yaxis.axis_label = y[cnt]
     plot.renderers.extend([vline, hline])
-    p.append(plot)
+    pl.append(plot)
 
+# For the timeline plot
+plot = figure(tools=TOOLS, plot_width=900, plot_height=ph, title=None, tooltips=ttips, x_axis_type='datetime')
+plot.scatter('Date', 'Rank', source=source, fill_alpha=fa, size=ms, color=colors, legend_field='Type', muted_color=colors, muted_alpha=0.2)
+plot.xaxis.axis_label = 'Date'
+plot.yaxis.axis_label = 'Rank'
+plot.legend.location = (100,55)
+pl.append(plot) 
 
-plot = figure(tools=TOOLS, plot_width=pw, plot_height=ph, title=None, tooltips=ttips)
-plot.scatter(y[17], y[17], source=source, fill_alpha=fa, size=ms, color=colors, legend_field='Type', muted_color=colors, muted_alpha=0.2)
-plot.xaxis.axis_label = 'Legend'
-plot.legend.location = "top_left"
-p.append(plot) 
+# Setting up the layout of the gridplot
+a1 = row(pl[0],pl[1],pl[2],pl[3])
+a2 = row(pl[4],pl[5],pl[6],pl[7])
+a3 = row(pl[8],pl[9],pl[10],pl[11])
+a4 = row(pl[12],pl[13],pl[14],pl[15])
+a5a = row(pl[16],pl[17])
+a5b = row(pl[18])
+a5 = row(a5a,a5b)
 
-p = gridplot([p[0:4],p[4:8],p[8:12],p[12:16],p[16:]], toolbar_location='right', toolbar_options=dict(logo='grey'))
-# p = gridplot([[a0,a1,a2,a3],[a4,a5,a6,a7]])
+# p = gridplot([pl[0:4],pl[4:8],pl[8:12],pl[12:16],pl[16:19]],sizing_mode='scale_height', toolbar_location='right', toolbar_options=dict(logo='grey'))
 
+p = gridplot(children=[[a1],[a2],[a3],[a4],[a5]],sizing_mode='fixed', toolbar_location='right', toolbar_options=dict(logo='grey'))
+            
 # output_file("DLV.html")
-curdoc().add_root(p)
-# show(p)
+curdoc().add_root(p)    # Enable for Binder
+# show(p)                   # Enable in Spyder, Jupyter                 
 
 
 
