@@ -31,7 +31,7 @@ x = ['C2-Dibenzothiophenes/C2-Phenanthrenes/Anthracenes','28S TAS/Tm','MP2/Peryl
 y = ['2,6,10 Trimethyldodecane (1380)/C4-Decalins','C1-Dibenzothiophenes/C1-Phenanthrenes/Anthracenes','28S TAS/Tm','28S TAS/Tm','C26 Tricyclic Terpane-22S/H29',
      'Tm/Bsnh','Bsnh/Hop','Bsnh/Hop','H29/Hop','29Ts/Hop','C1-Phenanthrenes/Anthracenes/Pristane','C1-Dibenzothiophenes/C1-Phenanthrenes/Anthracenes',
      'C1-Phenanthrenes/Anthracenes/Pristane','MP2/Benzo[e]pyrene','27dia S/Tm','MP2/Benzo[e]pyrene','MP2/Perylene','27bb R/Hop',
-     'nC17/pristane','nC18/phytane']
+     'nC17/pristane','nC17/pristane']
 
 # %% Bokeh Plot
 source = ColumnDataSource(df)
