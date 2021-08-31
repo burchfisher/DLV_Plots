@@ -90,8 +90,8 @@ a6 = row(pl[20])
 p = gridplot(children=[[a1],[a2],[a3],[a4],[a5],[a6]], sizing_mode='fixed', toolbar_location='right', toolbar_options=dict(logo='grey'))
             
 # output_file("DLV.html")
-#curdoc().add_root(p)    # Enable for Binder
-show(p)                   # Enable in Spyder, Jupyter                 
+curdoc().add_root(p)    # Enable for Binder
+# show(p)                   # Enable in Spyder, Jupyter                 
 
 
 
