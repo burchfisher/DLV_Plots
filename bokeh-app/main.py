@@ -26,7 +26,7 @@ df.Date = pd.to_datetime(df.Date).dt.date
 x = ['C2-Dibenzothiophenes/C2-Phenanthrenes/Anthracenes','28S TAS/Tm','MP2/Perylene','MP2/Benzo[e]pyrene','27bb S/Hop','MP2/Perylene',
      'n-Tetracosane (C24)/Hop','Benzo[e]pyrene/Hop','Bsnh/Hop','Bsnh/H29','C2-Phenanthrenes/Anthracenes/Phytane','C2-Dibenzothiophenes/C2-Phenanthrenes/Anthracenes',
      'C2-Dibenzothiophenes/C2-Phenanthrenes/Anthracenes','C1-Phenanthrenes/Anthracenes/Pristane','C1-Dibenzothiophenes/Pristane','27dia S/Tm','Bsnh/Hop','28S TAS/Tm',
-     'Pr/Phy','Pr/Phy']
+     'Pr/Phy','nC18/phytane']
 
 y = ['2,6,10 Trimethyldodecane (1380)/C4-Decalins','C1-Dibenzothiophenes/C1-Phenanthrenes/Anthracenes','28S TAS/Tm','28S TAS/Tm','C26 Tricyclic Terpane-22S/H29',
      'Tm/Bsnh','Bsnh/Hop','Bsnh/Hop','H29/Hop','29Ts/Hop','C1-Phenanthrenes/Anthracenes/Pristane','C1-Dibenzothiophenes/C1-Phenanthrenes/Anthracenes',
