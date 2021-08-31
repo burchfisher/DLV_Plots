@@ -64,7 +64,15 @@ plot.yaxis.axis_label = 'Rank'
 plot.legend.location = (100,55)
 pl.append(plot) 
 
-# Setting up the layout of the gridplot
+# For the sample group plot
+plot = figure(tools=TOOLS, plot_width=1800, plot_height=ph, title=None, tooltips=ttips)
+plot.scatter('Type', 'Rank_Type', source=source, fill_alpha=fa, size=ms, color=colors, legend_field='Type', muted_color=colors, muted_alpha=0.2)
+plot.xaxis.axis_label = 'Group'
+plot.yaxis.axis_label = 'Number'
+plot.legend.location = (100,55)
+pl.append(plot) 
+
+# Setting up the layout for gridplot
 a1 = row(pl[0],pl[1],pl[2],pl[3])
 a2 = row(pl[4],pl[5],pl[6],pl[7])
 a3 = row(pl[8],pl[9],pl[10],pl[11])
@@ -72,10 +80,11 @@ a4 = row(pl[12],pl[13],pl[14],pl[15])
 a5a = row(pl[16],pl[17])
 a5b = row(pl[18])
 a5 = row(a5a,a5b)
+a6 = row(a6)
 
 # p = gridplot([pl[0:4],pl[4:8],pl[8:12],pl[12:16],pl[16:19]],sizing_mode='scale_height', toolbar_location='right', toolbar_options=dict(logo='grey'))
 
-p = gridplot(children=[[a1],[a2],[a3],[a4],[a5]],sizing_mode='fixed', toolbar_location='right', toolbar_options=dict(logo='grey'))
+p = gridplot(children=[[a1],[a2],[a3],[a4],[a5],[a6]],sizing_mode='fixed', toolbar_location='right', toolbar_options=dict(logo='grey'))
             
 # output_file("DLV.html")
 curdoc().add_root(p)    # Enable for Binder
